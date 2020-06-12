@@ -1,23 +1,23 @@
-from flask import render_template,request,redirect,url_for
+from flask import render_template,request,redirect,url_for,abort
 from . import main
 from ..request import get_movies,get_movie,search_movie
-from .forms import ReviewForm
-from ..models import Review
+from .forms import ReviewForm,UpdateProfile
+from ..models import Review, User
 from flask_login import login_required
+from .. import db
 
+@main.route('/user/<uname>',methods = ['GET','POST'])
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
 
+    if User is None:
+        abort(404)
 
+    return render_template("profile/profile.html",user = user)
 
-
-# Views
 @main.route('/')
 def index():
 
-    '''
-    View root page function that returns the index page and its data
-    '''
-
-    # Getting popular movie
     popular_movies = get_movies('popular')
     upcoming_movie = get_movies('upcoming')
     now_showing_movie = get_movies('now_playing')
@@ -35,9 +35,6 @@ def index():
 @main.route('/movie/<int:id>')
 def movie(id):
 
-    '''
-    View movie page function that returns the movie details page and its data
-    '''
     movie = get_movie(id)
     title = f'{movie.title}'
     reviews = Review.get_reviews(movie.id)
@@ -48,9 +45,7 @@ def movie(id):
 
 @main.route('/search/<movie_name>')
 def search(movie_name):
-    '''
-    View function to display the search results
-    '''
+
     movie_name_list = movie_name.split(" ")
     movie_name_format = "+".join(movie_name_list)
     searched_movies = search_movie(movie_name_format)
@@ -77,3 +72,20 @@ def new_review(id):
 
     title = f'{movie.title} review'
     return render_template('new_review.html',title = title, review_form=form, movie=movie)
+
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
+def update_profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
+
+    form = UpdateProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+        
+        return redirect(url_for('.profile',uname = user.username))
+    return render_template('profile/update.html',form = form)
