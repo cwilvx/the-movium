@@ -4,55 +4,74 @@
 <!-- Styles block -->
 
 {% block styles%}
-    {{ super() }}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{{ super() }}
+<style>
+@media (max-width: 650px) {
+  .top-link{
+    font-size: small;
+    
+  }
+
+}
+</style>
 {% endblock %}
 <!-- Content block -->
 {% block content %}
-
+<div class="alert alert-light text-left text-dark border rounded-0 shadow" style="margin: 5px;" role="alert"><span>
+  <form method="get" action="" class="form-inline">
+    <input style="width: 90%;" type="search" placeholder="Search movies" class="form-control" name="movie_query"><button type="submit" class="btn btn-primary ml-auto" style="width: 10%;">Go!</button>
+  </form>
+  </span></div>
 <div class="container">
 
-  {% if current_user.is_authenticated%}
+  <!-- {% if current_user.is_authenticated%}
     <h1>Hello {{current_user.username}}</h1>
   {% else %}
     <h1>Hello stranger</h1>
-  {%endif%}
-    <form>
-        <input type="text" name="movie_query" placeholder="Search for a Movie" class="form-control">
-        <input type="submit"  value="Submit" class="btn btn-default">
-    </form>
+  {%endif%} -->
+  
+</div>
+<section data-bs-parallax-bg="true" style="background-image: url(https://wallpaperstream.com/wallpapers/full/black-panther/Black-Panther-HD-Artwork.jpg); background-position: center;background-size: cover;">
+  <div class="jumbotron shadow tops" style="height: auto;background-color: transparent;">
+      <h1 class="display-4 text-center text-light">#Top3 In Theaters</h1>
+      <div class="row">
+        {{ macro.displayTop3MovieList(now_showing)}}
+      </div>
+  </div>
+</section>
 
+<div style="padding: 20px;">
+    <h1 class="text-center" style="width: 100%; background-color: #a3057f; border-radius: 0; color: white;"></h1>
+    <div class="row">
+       {{ macro.displayMovieList(now_showing)}}
+    </div>
 </div>
 
-<div class="container">
-
-    <!-- Popular movie -->
+    <section data-bs-parallax-bg="true" style="background-image: url(https://wallpaperstream.com/wallpapers/full/black-panther/Black-Panther-Dark-Wallpaper.jpg);background-position: center;background-size: cover; background-position: fixed;">
+      <div class="jumbotron shadow" style="height: auto;background-color: transparent;">
+          <h1 class="display-4 text-center text-light">#Top3 Upcoming Movies</h1>
+          <div class="row">
+            {{ macro.displayTop3MovieList(upcoming)}}
+          </div>
+      </div>
+    </section>
+  <div style="padding: 20px;">
     <div class="row">
-        <h3> Popular Movies</h3>
-        <ul>
-            {{ macro.displayMovieList(popular)}}
-        </ul>
+        {{ macro.displayMovieList(upcoming)}}
+     </div>
+  </div>
+  <section data-bs-parallax-bg="true" style="background-image: url(https://wallpaperstream.com/wallpapers/full/black-panther/Black-Panther-Artwork-HD.jpg);background-position: center;background-size: cover; background-position: fixed;">
+    <div class="jumbotron shadow" style="height: auto;background-color: transparent;">
+        <h1 class="display-4 text-center text-light">#Top3 Popular Movies</h1>
+        <div class="row">
+          {{ macro.displayTop3MovieList(popular)}}
+        </div>
     </div>
-    <!-- Upcoming movie  -->
+  </section>
+  <div style="padding: 20px;">
     <div class="row">
+        {{ macro.displayMovieList(popular)}}
+     </div>
 
-        <h3> Upcoming Movies </h3>
-        <ul>
-            {{ macro.displayMovieList(upcoming)}}
-        </ul>
-    </div>
-
-    <!-- Now showing movie -->
-    <div class="row">
-
-        <h3>Now Showing</h3>
-        <ul>
-            {{ macro.displayMovieList(now_showing)}}
-        </ul>
-    </div>
-
-</div>
-
-
-
+  </div>
 {% endblock%}

@@ -2,17 +2,9 @@
 {% import 'macros.html' as macro%}
 
 {% block content %}
-    <div class="container">
+<div class="alert alert-light text-left text-dark border rounded-0 shadow" style="margin: 5px;" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><span>Found {{ movies| count }} matches </span></div>
 
-        <div class="row">
-
-            <h3> Found {{ movies| count }} matches </h3>
-            <hr>
-            <ul>
-                {{ macro.displayMovieList(movies)}}
-            </ul>
-
-        </div>
-
-    </div>
+<div class="row">
+{{ macro.displayMovieList(movies)}}
+</div>
 {% endblock %}

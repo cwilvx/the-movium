@@ -11,7 +11,7 @@ import markdown2
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
 
-    if User is None:
+    if user is None:
         abort(404)
 
     return render_template("profile/profile.html",user = user)
@@ -30,37 +30,16 @@ def index():
     if search_movie:
         return redirect(url_for('.search',movie_name=search_movie))
     else:
-        return render_template('index.html', title = title, popular = popular_movies, upcoming = upcoming_movie, now_showing = now_showing_movie )
+        return render_template('index.html', title = title, popular = popular_movies, upcoming = upcoming_movie, now_showing = now_showing_movie)
 
 
-@main.route('/movie/<int:id>')
+@main.route('/movie/<int:id>' ,methods = ['GET','POST'])
 def movie(id):
 
     movie = get_movie(id)
     title = f'{movie.title}'
     reviews = Review.get_reviews(movie.id)
-
-    return render_template('movie.html',title = title,movie = movie,reviews = reviews)
-
-
-
-@main.route('/search/<movie_name>')
-def search(movie_name):
-
-    movie_name_list = movie_name.split(" ")
-    movie_name_format = "+".join(movie_name_list)
-    searched_movies = search_movie(movie_name_format)
-    title = f'search results for {movie_name}'
-    return render_template('search.html',movies = searched_movies)
-
-
-@main.route('/movie/review/new/<int:id>', methods = ['GET','POST'])
-@login_required
-def new_review(id):
-
     form = ReviewForm()
-
-    movie = get_movie(id)
 
     if form.validate_on_submit():
         title = form.title.data
@@ -72,8 +51,16 @@ def new_review(id):
 
         return redirect(url_for('.movie',id = movie.id ))
 
-    title = f'{movie.title} review'
-    return render_template('new_review.html',title = title, review_form=form, movie=movie)
+    return render_template('movie.html',title = title,movie = movie,reviews = reviews,review_form=form)
+
+@main.route('/search/<movie_name>')
+def search(movie_name):
+
+    movie_name_list = movie_name.split(" ")
+    movie_name_format = "+".join(movie_name_list)
+    searched_movies = search_movie(movie_name_format)
+    title = f'search results for {movie_name}'
+    return render_template('search.html',movies = searched_movies)
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 def update_profile(uname):

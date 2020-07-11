@@ -1,8 +1,23 @@
 {% extends 'base.html' %}
-{% import 'bootstrap/wtf.html' as wtf %}
+{% import 'bootstrap/form.html' as wtf %}
 
 {% block content %}
 <div class="container">
-	{{wtf.quick_form(form)}}
+	<div class="row">
+		<div class="col-col-md-2"></div>
+		<div class="col col-md-8">
+			{{wtf.render_form(form)}}
+		</div>
+		<div class="col col-md-2"></div>
+	</div>
+	<style>
+		#bio{
+			height: 100px;
+		}
+		label{
+			color: white;
+		}
+	</style>
+	
 </div>
 {% endblock %}

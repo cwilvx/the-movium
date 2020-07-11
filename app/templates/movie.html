@@ -1,52 +1,86 @@
 {% extends 'base.html'%}
 {% import 'macros.html' as macro%}
+{% import "bootstrap/form.html" as wtf %}
 
 
 <!-- Styles block -->
 
 {% block styles%}
     {{ super() }}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/movie.css')}}">
+    <style>
+        .review {
+  margin-top: 5px;
+}
+
+.form-control.name {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 50px;
+}
+
+.card.review {
+  margin-top: 20px;
+}
+.card{
+    background-color: #1d1d1d;
+    color: white;
+}
+#review{
+    height: 100px;
+}
+
+    </style>
 {% endblock %}
 
 <!-- Content block -->
 {% block content %}
-<div class="container">
-
-    <!-- Poster background -->
-    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 posterPath" style="background: url({{movie.poster}}) no-repeat center center">
+<div>
+    <div class="container" style="margin-bottom: 20px;">
+        <div class="row" style="height: 700px;margin: 20px;">
+            <div class="col-md-6" style="margin-bottom: 20px;">
+                <div class="shadow"><img src="{{movie.poster}}" style="width: 100%;"></div>
+                <div>
+                    
+                    {% if current_user.is_authenticated %}
+                    <div class="card shadow review" id="bottom">
+                        <div class="card-body">
+                        {{ wtf.render_form(review_form) }}
+                        </div>
+                    </div>
+                    {% endif %} 
+                </div>
+            </div>
+            <div class="col-md-6" style="margin-bottom: 20px;">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">{{movie.title}}</h4>
+                        <h6 class="text-muted card-subtitle mb-2"><b>{{ movie.vote_average }}</b> - <i>{{ movie.vote_count}} votes</i></h6>
+                        <p class="card-text">{{ movie.overview }}</p>
+                        {% if current_user.is_authenticated %}
+                            <a class="card-link" href="#title">Write a Review</a>
+                        {% else %}
+                        <a class="card-link" href="{{url_for('auth.login')}}">Login to write a review</a>
+                        {% endif %}</div>
+                </div>
+                {% if reviews %}
+                {{macro.displayReviews(reviews)}}
+                {% else%}
+                <div class="card review">
+                    <div class="card-body">
+                        <h4 class="card-title">This Movie has no Reviews</h4>
+                        
+                        {% if current_user.is_authenticated %}
+                            <a class="card-link " href="#title">Write a Review</a>
+                        {% else %}
+                        <a class="card-link" href="{{url_for('auth.login')}}">Login to write a review</a>
+                        {% endif %}
+                            
+                        
+                    </div>
+                </div>
+            {% endif %}
+            </div>
         </div>
-
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 movie-details">
-            <h3>{{ movie.title }}</h3>
-
-            <p class="overview"> {{ movie.overview }}</p>
-
-            <p class="ratings"> <b> {{ movie.vote_average }}</b> - <i>{{ movie.vote_count}} votes </i> </p>
-            <a class="ratings" href="/movie/review/new/{{movie.id}}"> Write a new review</a>
-
-
-        </div>
-
-
     </div>
-    
-    <div class="row">
-
-        <h1>Reviews</h1>
-        <hr>
-
-        {% if reviews %}
-            {{macro.displayReviews(reviews)}}
-
-        {% else%}
-            <h3 class="text-center">This movie has no reviews </h3>
-
-            <a class="btn btn-success btn-lg text-center" href="/movie/review/new/{{movie.id}}"> Write a new review</a>
-        {% endif %}
-
-    </div>
-
 </div>
 {% endblock %}

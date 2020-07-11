@@ -31,7 +31,7 @@ class Review(db.Model):
     movie_review = db.Column(db.String)
     posted = db.Column(db.DateTime,default = datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-
+    
     def save_review(self):
         db.session.add(self)
         db.session.commit()
@@ -108,4 +108,3 @@ class Role(db.Model):
 
     def __repr__(self):
         return f'User {self.name}'
-

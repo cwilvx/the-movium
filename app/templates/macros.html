@@ -1,34 +1,40 @@
 <!-- Displaying movie list macro  -->
 {% macro displayMovieList(movie_list) %}
-
-    {% for movie in movie_list %}
-        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 movie-card">
-            <img src="{{ movie.poster }}" alt="{{ movie.title }} poster" class="img-responsive">
-            <li class="text-center">
-                <a href="/movie/{{movie.id}}">
-                    {{ movie.title|truncate(10)}}</a>
-            </li>
-        </div>
-
+    {% for movie in movie_list[3:19] %}
+            <div class="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-xs-12 " style="padding: 5px;">
+                <div class="card"><img class="card-img w-100 d-block" src="{{movie.poster}}">
+                    <div class="card-img-overlay">
+                        <a class="movie-title" href="/movie/{{movie.id}}">{{ movie.title|truncate(20)}}</a>
+                    </div>
+                </div>
+            </div>
     {% endfor %}
+{% endmacro %}
 
+{% macro displayTop3MovieList(movie_list) %}
+    {% for movie in movie_list[0:3] %}
+            <div class="col-md-4 col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4">
+                <div class="card shadow" style="padding: 5px; background-color: transparent;" data-bs-parallax-bg="true"><img class="card-img w-100 d-block" src="{{movie.poster}}">
+                    <div class="card-img-overlay">
+                        <a class="movie-title" href="/movie/{{movie.id}}">{{ movie.title|truncate(20)}}</a>
+                    </div>
+                </div>
+            </div>
+            
+    {% endfor %}
 {% endmacro %}
 
 <!-- Displaying reviews macro -->
 {% macro displayReviews(review_list) %}
 
     {% for review in review_list %}
-        <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 review-card">
-                <h4>Author</h4>
-                <h2> <a href="{{url_for('main.single_review',id=review.id)}}">{{review.movie_title}}</a> </h2>
-            </div>
-
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 review-card">
-                <h2> {{review.title}} </h2>
-                <p> {{review.review | truncate(30)}}</p>
-            </div>
+    <div class="card review">
+        <div class="card-body">
+            <h4 class="card-title">{{review.movie_title}}</h4>
+            <h6 class="text-muted card-subtitle mb-2">By user id {{review.user_id}}</h6>
+            <p class="card-text">{{review.movie_review}}</p>
         </div>
+    </div>
     {% endfor %}
 
 {% endmacro %}

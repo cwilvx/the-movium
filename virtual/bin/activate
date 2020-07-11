@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/cwilv/Documents/Watchlist/Watchlist/virtual"
+VIRTUAL_ENV="/home/cwilv/Documents/Flask/Watchlist/virtual"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
