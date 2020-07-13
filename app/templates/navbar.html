@@ -1,90 +1,8 @@
-    <style>
-    .navigation-clean-search {
-      background-color: #1d1d1d;
-      color: rgb(255, 255, 255);
-      border-radius: 0;
-      box-shadow: none;
-      border: none;
-      margin-bottom: 0;
-    }
-    .navigation-clean-search a{
-      color: white;
-    }
-    
-    .navigation-clean-search .navbar-brand {
-      font-weight: bold;
-      color: inherit;
-    }
-    
-    .navigation-clean-search .navbar-brand:hover {
-      color: rgb(201, 201, 201);
-    }
-    
-    .navigation-clean-search .navbar-toggler {
-      border-color: #ddd;
-    }
-    
-    .navigation-clean-search .navbar-toggler:hover, .navigation-clean-search .navbar-toggler:focus {
-      background: none;
-    }
-    
-    .navigation-clean-search .navbar-toggler {
-      color: #888;
-    }
-    
-    .navigation-clean-search .navbar-collapse, .navigation-clean-search .form-inline {
-      border-top-color: #ddd;
-    }
-    
-    .navigation-clean-search .navbar-nav a.active, .navigation-clean-search .navbar-nav > .show > a {
-      background: none;
-      box-shadow: none;
-    }
-
-    .navigation-clean-search.navbar .navbar-nav .nav-link {
-      padding-left: 18px;
-      padding-right: 18px;
-    }
-    
-    .navigation-clean-search.navbar-light .navbar-nav .nav-link {
-      color: #ffffff;
-    }
-    .navigation-clean-search .action-button, .navigation-clean-button .action-button:active {
-      background: #56c6c6;
-      border-radius: 0;
-      font-size: inherit;
-      color: #fff !important;
-      box-shadow: none;
-      border: none;
-      text-shadow: none;
-      padding: 8px 20px;
-      transition: background-color 0.25s;
-    }
-    
-    .form-inline.mr-auto.top-search {
-      border: none;
-      padding: 3px;
-    }
-    
-    .btn.btn-light.action-button.register-btn {
-      margin-right: 10px;
-    }
-    
-    .submit-search {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border: 0;
-      height: 35px;
-    }
-    nav{
-      height: auto;
-    }
-    </style>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
-    <nav class="navbar navbar-light navbar-expand-md shadow navigation-clean-search">
-      <div class="container"><a class="navbar-brand" href="/">Baseline Movies</a><button class="navbar-toggler bg-light" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only bg-light">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+<nav class="navbar navbar-light text-light navbar-expand-md shadow navigation-clean-search">
+      <div class="container"><a class="navbar-brand text-light" href="/">Baseline Movies</a><button class="navbar-toggler bg-light" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only bg-light">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse"
               id="navcol-1">
               <ul class="nav navbar-nav">
@@ -96,7 +14,7 @@
               <a class="btn btn-light action-button float-right" role="button" href="{{url_for('auth.logout')}}" style="background-color: #a3057f;">LOGOUT</a></div>
               <p></p>
               {% else %}
-              <a class="btn btn-light action-button register-btn ml-auto" role="button" href="#" style="background-color: #a3057f;">REGISTER</a><a class="btn btn-light action-button" role="button" href="{{url_for('auth.login')}}" style="background-color: #a3057f;">LOGIN</a></div>
+              <a class="btn btn-light action-button register-btn ml-auto" role="button" href="{{url_for('auth.register')}}" style="background-color: #a3057f;">REGISTER</a><a class="btn btn-light action-button" role="button" href="{{url_for('auth.login')}}" style="background-color: #a3057f;">LOGIN</a></div>
               {% endif %}
       </div>
-  </nav>
+</nav>

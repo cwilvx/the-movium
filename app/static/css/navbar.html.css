@@ -1,0 +1,80 @@
+.navigation-clean-search {
+	background-color: #1d1d1d;
+	color: rgb(255, 255, 255);
+	border-radius: 0;
+	box-shadow: none;
+	border: none;
+	margin-bottom: 0;
+  }
+  .navigation-clean-search a{
+	color: white;
+  }
+  
+  .navigation-clean-search .navbar-brand {
+	font-weight: bold;
+	color: white;
+  }
+  
+  .navigation-clean-search .navbar-brand:hover {
+	color: rgb(201, 201, 201);
+  }
+  
+  .navigation-clean-search .navbar-toggler {
+	border-color: #ddd;
+  }
+  
+  .navigation-clean-search .navbar-toggler:hover, .navigation-clean-search .navbar-toggler:focus {
+	background: none;
+  }
+  
+  .navigation-clean-search .navbar-toggler {
+	color: #888;
+  }
+  
+  .navigation-clean-search .navbar-collapse, .navigation-clean-search .form-inline {
+	border-top-color: #ddd;
+  }
+  
+  .navigation-clean-search .navbar-nav a.active, .navigation-clean-search .navbar-nav > .show > a {
+	background: none;
+	box-shadow: none;
+  }
+
+  .navigation-clean-search.navbar .navbar-nav .nav-link {
+	padding-left: 18px;
+	padding-right: 18px;
+  }
+  
+  .navigation-clean-search.navbar-light .navbar-nav .nav-link {
+	color: #ffffff;
+  }
+  .navigation-clean-search .action-button, .navigation-clean-button .action-button:active {
+	background: #56c6c6;
+	border-radius: 0;
+	font-size: inherit;
+	color: #fff !important;
+	box-shadow: none;
+	border: none;
+	text-shadow: none;
+	padding: 8px 20px;
+	transition: background-color 0.25s;
+  }
+  
+  .form-inline.mr-auto.top-search {
+	border: none;
+	padding: 3px;
+  }
+  
+  .btn.btn-light.action-button.register-btn {
+	margin-right: 10px;
+  }
+  
+  .submit-search {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border: 0;
+	height: 35px;
+  }
+  nav{
+	height: auto;
+  }

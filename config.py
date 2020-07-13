@@ -3,6 +3,7 @@ import os
 class Config:
 
     MOVIE_API_BASE_URL ='https://api.themoviedb.org/3/movie/{}?api_key={}'
+    SIMILAR_URL = 'https://api.themoviedb.org/3/movie/{}/similar?api_key={}&language=en-US'
     MOVIE_API_KEY = os.environ.get('MOVIE_API_KEY')
     SECRET_KEY = os.environ.get('SECRET_KEY')
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
@@ -25,8 +26,7 @@ class TestConfig(Config):
 
 class ProdConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-    pass
-
+    DEBUG = True
 class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://cwilv:iamcwilv@localhost/watchlist'
     DEBUG = True

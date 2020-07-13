@@ -2,45 +2,19 @@
 {% import 'macros.html' as macro%}
 {% import "bootstrap/form.html" as wtf %}
 
-
-<!-- Styles block -->
-
-{% block styles%}
-    {{ super() }}
-    <style>
-        .review {
-  margin-top: 5px;
-}
-
-.form-control.name {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  height: 50px;
-}
-
-.card.review {
-  margin-top: 20px;
-}
-.card{
-    background-color: #1d1d1d;
-    color: white;
-}
-#review{
-    height: 100px;
-}
-
-    </style>
-{% endblock %}
-
-<!-- Content block -->
 {% block content %}
+<title>{{movie.title}}</title>
+<style>
+    .card {
+        background-color: #1d1d1d;
+    }
+</style>
 <div>
-    <div class="container" style="margin-bottom: 20px;">
+    <div class="container-fluid" style="margin-bottom: 20px;">
         <div class="row" style="height: 700px;margin: 20px;">
-            <div class="col-md-6" style="margin-bottom: 20px;">
+            <div class="col-md-6" style="margin-bottom: 20px;">    
                 <div class="shadow"><img src="{{movie.poster}}" style="width: 100%;"></div>
                 <div>
-                    
                     {% if current_user.is_authenticated %}
                     <div class="card shadow review" id="bottom">
                         <div class="card-body">
@@ -51,10 +25,13 @@
                 </div>
             </div>
             <div class="col-md-6" style="margin-bottom: 20px;">
-                <div class="card">
+                <div class="card" style="background-color: #1d1d1d;">
                     <div class="card-body">
                         <h4 class="card-title">{{movie.title}}</h4>
                         <h6 class="text-muted card-subtitle mb-2"><b>{{ movie.vote_average }}</b> - <i>{{ movie.vote_count}} votes</i></h6>
+                        {% for genre in movie.genres %}
+                    <span style="margin-right: 20px;color: green;">{{genre.name}}</span>
+                {% endfor %}
                         <p class="card-text">{{ movie.overview }}</p>
                         {% if current_user.is_authenticated %}
                             <a class="card-link" href="#title">Write a Review</a>
@@ -68,19 +45,44 @@
                 <div class="card review">
                     <div class="card-body">
                         <h4 class="card-title">This Movie has no Reviews</h4>
-                        
                         {% if current_user.is_authenticated %}
                             <a class="card-link " href="#title">Write a Review</a>
                         {% else %}
                         <a class="card-link" href="{{url_for('auth.login')}}">Login to write a review</a>
                         {% endif %}
-                            
-                        
                     </div>
                 </div>
             {% endif %}
             </div>
+            <hr class="bg-light">
+            <div class="col-12 card">
+                <div class="card" style="background-color: transparent; border: none; margin-top: 50px; margin-bottom: 50px;" ><br>
+                    <h1 class="text-center">Similar to {{movie.title}}</h1><hr><br>
+                    <div class="row card-body">
+                        {% for movie in similar %}
+                            <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6" style="padding: 5px;">
+                            <div class="photo-card">
+                                <div class="photo-background" style="background-image: url({{movie.poster}});" ></div>
+                                <div class="photo-details">
+                                    <h2 style="color: rgb(255,255,255);"><span><a class="movie-taito" href="/movie/{{movie.id}}">{{movie.title}}</a></span></h2>
+                                    <h6 class="text-success card-subtitle mb-2"><b>{{ movie.vote_average }}</b> - <i>{{ movie.vote_count}} votes</i></h6>
+                                    <p>{{movie.overview | truncate(200)}}&nbsp; </p>
+                                    <div class="photo-tags">
+                                        <ul>
+                                            <li><a href="#">Watch trailer</a></li>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        </div>        
+                    </div>
+            </div>
         </div>
     </div>
 </div>
+</div>
+
 {% endblock %}

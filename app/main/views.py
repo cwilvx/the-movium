@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
-from ..request import get_movies,get_movie,search_movie
+from ..request import get_movies,get_movie,search_movie,get_similar_movies
 from .forms import ReviewForm,UpdateProfile
 from ..models import Review, User
 from flask_login import login_required,current_user
@@ -37,6 +37,7 @@ def index():
 def movie(id):
 
     movie = get_movie(id)
+    similar = get_similar_movies(id)
     title = f'{movie.title}'
     reviews = Review.get_reviews(movie.id)
     form = ReviewForm()
@@ -51,7 +52,7 @@ def movie(id):
 
         return redirect(url_for('.movie',id = movie.id ))
 
-    return render_template('movie.html',title = title,movie = movie,reviews = reviews,review_form=form)
+    return render_template('movie.html',title = title,movie = movie,similar = similar,reviews = reviews,review_form=form)
 
 @main.route('/search/<movie_name>')
 def search(movie_name):

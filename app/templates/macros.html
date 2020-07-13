@@ -24,7 +24,18 @@
     {% endfor %}
 {% endmacro %}
 
-<!-- Displaying reviews macro -->
+{% macro displaySMovieList(movie_list) %}
+    {% for movie in movie_list %}
+            <div class="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-xs-12 " style="padding: 5px;">
+                <div class="card"><img class="card-img w-100 d-block" src="{{movie.poster}}">
+                    <div class="card-img-overlay">
+                        <a class="movie-title" href="/movie/{{movie.id}}">{{ movie.title|truncate(20)}}</a>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+{% endmacro %}
+
 {% macro displayReviews(review_list) %}
 
     {% for review in review_list %}
