@@ -1,13 +1,30 @@
 <!-- Displaying movie list macro  -->
 {% macro displayMovieList(movie_list) %}
     {% for movie in movie_list[3:19] %}
-            <div class="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-xs-12 " style="padding: 5px;">
-                <div class="card"><img class="card-img w-100 d-block" src="{{movie.poster}}">
-                    <div class="card-img-overlay">
-                        <a class="movie-title" href="/movie/{{movie.id}}">{{ movie.title|truncate(20)}}</a>
-                    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6" style="padding: 5px;">
+        <div class="photo-card">
+            <div class="photo-background" style="background-image: url({{movie.poster}});" ></div>
+            <div class="photo-details">
+                <h2 style="color: rgb(255,255,255);"><span><a class="movie-taito" href="/movie/{{movie.id}}">{{movie.title |truncate(35)}}</a></span><span style="font-size: small;" class="text-light" >({{movie.date[0:4]}})</span></h2>
+                <h6 class="text-success card-subtitle mb-2"><b>{{ movie.vote_average }}</b> - <i>{{ movie.vote_count}} votes</i></h6>
+                <p>{{movie.overview | truncate(200)}}&nbsp; </p>
+                <div class="photo-tags">
+                    <ul>
+                        <li>
+                            
+                            {% if movie.date %}
+                                <a href="#" class="btn disabled">Released</a>
+                            {% else %}
+                            <a href="#" class="disabled">Unreleased</a>
+                            {% endif %}
+                                
+                            </li>
+                        <li></li>
+                    </ul>
                 </div>
             </div>
+        </div>
+    </div>
     {% endfor %}
 {% endmacro %}
 
@@ -16,7 +33,7 @@
             <div class="col-md-4 col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4">
                 <div class="card shadow" style="padding: 5px; background-color: transparent;" data-bs-parallax-bg="true"><img class="card-img w-100 d-block" src="{{movie.poster}}">
                     <div class="card-img-overlay">
-                        <a class="movie-title" href="/movie/{{movie.id}}">{{ movie.title|truncate(20)}}</a>
+                        <a class="movie-title" href="{{url_for('main.movie',id = movie.id)}}">{{ movie.title|truncate(20)}}</a>
                     </div>
                 </div>
             </div>
@@ -29,7 +46,7 @@
             <div class="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-xs-12 " style="padding: 5px;">
                 <div class="card"><img class="card-img w-100 d-block" src="{{movie.poster}}">
                     <div class="card-img-overlay">
-                        <a class="movie-title" href="/movie/{{movie.id}}">{{ movie.title|truncate(20)}}</a>
+                        <a class="movie-title" href="{{url_for('main.movie',id = movie.id)}}">{{ movie.title|truncate(20)}}</a>
                     </div>
                 </div>
             </div>
@@ -39,7 +56,7 @@
 {% macro displayReviews(review_list) %}
 
     {% for review in review_list %}
-    <div class="card review">
+    <div class="card review col-md-4" style="margin: 10px;">
         <div class="card-body">
             <h4 class="card-title">{{review.movie_title}}</h4>
             <h6 class="text-muted card-subtitle mb-2">By user id {{review.user_id}}</h6>

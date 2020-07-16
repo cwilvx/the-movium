@@ -16,9 +16,14 @@
 {% endblock %}
 <!-- Content block -->
 {% block content %}
+<style>
+  body{
+    background-image: url({{backdrop}});
+  }
+</style>
 <title>Home - Baseline Movies</title>
 <div class="alert alert-light text-left text-dark border rounded-0 shadow" style="margin: 5px;" role="alert"><span>
-  <form method="get" action="" class="form-inline">
+  <form method="get" class="form-inline">
     <input style="width: 90%;" type="search" placeholder="Search movies" class="form-control" name="movie_query"><button type="submit" class="btn btn-primary ml-auto" style="width: 10%;">Go!</button>
   </form>
   </span></div>
@@ -35,7 +40,7 @@
 <div style="padding: 20px;">
     <h1 class="text-center" style="width: 100%; background-color: #a3057f; border-radius: 0; color: white;"></h1>
     <div class="row">
-       {{ macro.displayMovieList(now_showing)}}
+       {{ macro.displayMovieList(top_rated)}}
     </div>
 </div>
     <section data-bs-parallax-bg="true" style="background-image: url(https://wallpaperstream.com/wallpapers/full/black-panther/Black-Panther-Dark-Wallpaper.jpg);background-position: center;background-size: cover; background-position: fixed;">

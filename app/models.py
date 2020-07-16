@@ -9,8 +9,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 class Movie:
-    
-    def __init__(self,id,title,overview,poster,vote_average,vote_count,genres):
+    def __init__(self,id,title,overview,poster,vote_average,vote_count,genres,backdrop,collection,budget,homepage,date,languages,status,tag,revenue,f_revenue,f_budget,b_collection):
         self.id =id
         self.title = title
         self.overview = overview
@@ -18,9 +17,32 @@ class Movie:
         self.vote_average = vote_average
         self.vote_count = vote_count
         self.genres = genres
+        self.backdrop = "https://image.tmdb.org/t/p/w1280/" + backdrop
+        self.collection = collection
+        self.budget = budget
+        self.homepage = homepage
+        self.date = date
+        self.languages = languages
+        self.status = status
+        self.tag = tag
+        self.revenue = revenue
+        self.f_revenue = f_revenue
+        self.f_budget = f_budget
+        self.b_collection = b_collection
 
-
-
+class Genres:
+    def __init__(self,id,name):
+        self.id = id
+        self.name = name
+       
+# class Collection:
+#     def __init__(self,name,overview,poster,backdrop,parts):
+#         self.name = name
+#         self.overview = overview
+#         self.poster = poster
+#         self.backdrop = backdrop
+#         self.parts = parts
+     
 class Review(db.Model):
 
     __tablename__ = 'reviews'

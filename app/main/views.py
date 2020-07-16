@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
-from ..request import get_movies,get_movie,search_movie,get_similar_movies
+from ..request import get_movies,get_movie,search_movie,get_genres,get_similar_movies,get_genre_movies
 from .forms import ReviewForm,UpdateProfile
 from ..models import Review, User
 from flask_login import login_required,current_user
@@ -22,6 +22,7 @@ def index():
     popular_movies = get_movies('popular')
     upcoming_movie = get_movies('upcoming')
     now_showing_movie = get_movies('now_playing')
+    top_rated = get_movies('top_rated')
 
     title = 'Home - Welcome to The best Movie Review Website Online'
 
@@ -30,8 +31,17 @@ def index():
     if search_movie:
         return redirect(url_for('.search',movie_name=search_movie))
     else:
-        return render_template('index.html', title = title, popular = popular_movies, upcoming = upcoming_movie, now_showing = now_showing_movie)
+        return render_template('index.html', title = title, popular = popular_movies, upcoming = upcoming_movie, now_showing = now_showing_movie,top_rated = top_rated)
 
+@main.route('/genres')
+def genres():
+    genres = get_genres()
+    return render_template('genres.html',genres = genres)
+
+@main.route('/genres/<int:id>/movies')
+def genre_movies(id):
+    movies = get_genre_movies(id)
+    return render_template('genre_movies.html',movies = movies)
 
 @main.route('/movie/<int:id>' ,methods = ['GET','POST'])
 def movie(id):
