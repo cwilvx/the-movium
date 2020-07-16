@@ -1,5 +1,5 @@
 import urllib.request,json
-from .models import Movie,Genres
+from .models import Movie,Genres,Collection
 
 api_key = None
 base_url = None
@@ -15,7 +15,7 @@ def configure_request(app):
     similar_url = app.config['SIMILAR_URL']
     genres_url = app.config['GENRES_URL']
     genre_movies_url = app.config['GENRE_MOVIES_URL']
-    # collection_url = app.config['COLLECTION_URL']
+    collection_url = app.config['COLLECTION_URL']
 
 def get_genres():
     get_genres_url = genres_url.format(api_key)
@@ -73,6 +73,24 @@ def get_similar_movies(id):
 
     return movie_results
 
+def get_collection(id):
+    get_collection_url = collection_url.format(id,api_key)
+    with urllib.request.urlopen(get_collection_url) as url:
+        collection_movies_data = url.read()
+        collection_movies_response = json.loads(collection_movies_data)
+        
+        collection_movies_result = None
+        
+        if collection_movies_response:
+            name = collection_movies_response.get('name')
+            overview = collection_movies_response.get('overview')
+            poster = collection_movies_response.get('poster_path')
+            backdrop = collection_movies_response.get('backdrop_path')
+            parts = collection_movies_response.get('parts')
+            
+            collection_movies_result = Collection(name,overview,poster,backdrop,parts)
+    return collection_movies_result
+
 def get_movie(id):
     get_movie_details_url = base_url.format(id,api_key)
 
@@ -120,18 +138,6 @@ def get_genre_movies(id):
             
     return genre_movies_results
     
-# def get_collection(id):
-#     get_collection_url = collection_url.format(id,api_key)
-#     with urllib.request.urlopen(get_collection_url) as url:
-#         collection_movies_data = url.read()
-#         collection_movies_response = json.loads(collection_movies_data)
-        
-#         collection_movies_result = None
-        
-#         if collection_movies_response['results']:
-#             collection_movies_list = collection_movies_response['results']
-#             collection_movies_result = process_collections(collection_movies_list)
-#     return collection_movies_result
 
 def search_movie(movie_name):
     search_movie_url = 'https://api.themoviedb.org/3/search/movie?api_key={}&query={}'.format(api_key,movie_name)
@@ -178,4 +184,3 @@ def process_results(movie_list):
 
     return movie_results
 
-# def process_collections(movie_list):

@@ -35,13 +35,13 @@ class Genres:
         self.id = id
         self.name = name
        
-# class Collection:
-#     def __init__(self,name,overview,poster,backdrop,parts):
-#         self.name = name
-#         self.overview = overview
-#         self.poster = poster
-#         self.backdrop = backdrop
-#         self.parts = parts
+class Collection:
+    def __init__(self,name,overview,poster,backdrop,parts):
+        self.name = name
+        self.overview = overview
+        self.poster = "https://image.tmdb.org/t/p/w1280/"+poster
+        self.backdrop = "https://image.tmdb.org/t/p/w1280/"+backdrop
+        self.parts = parts
      
 class Review(db.Model):
 

@@ -33,23 +33,11 @@
             <div class="col-md-4 col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4">
                 <div class="card shadow" style="padding: 5px; background-color: transparent;" data-bs-parallax-bg="true"><img class="card-img w-100 d-block" src="{{movie.poster}}">
                     <div class="card-img-overlay">
-                        <a class="movie-title" href="{{url_for('main.movie',id = movie.id)}}">{{ movie.title|truncate(20)}}</a>
+                        <a class="movie-title" href="{{url_for('main.movie',id = movie.id)}}">{{ movie.title}}</a>
                     </div>
                 </div>
             </div>
             
-    {% endfor %}
-{% endmacro %}
-
-{% macro displaySMovieList(movie_list) %}
-    {% for movie in movie_list %}
-            <div class="col-md-3 col-sm-6 col-xl-3 col-lg-3 col-xs-12 " style="padding: 5px;">
-                <div class="card"><img class="card-img w-100 d-block" src="{{movie.poster}}">
-                    <div class="card-img-overlay">
-                        <a class="movie-title" href="{{url_for('main.movie',id = movie.id)}}">{{ movie.title|truncate(20)}}</a>
-                    </div>
-                </div>
-            </div>
     {% endfor %}
 {% endmacro %}
 

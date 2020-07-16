@@ -58,7 +58,9 @@
                                 border-radius: 0;
                             }
                         </style>
-                        <p class="card-text" >{{movie.b_collection.name}}</p>
+                        {% if movie.collection %}
+                            <p class="card-text" ><a href="{{url_for('main.collection',id=movie.b_collection.id)}}" class="card-link">{{movie.b_collection.name}}</a></p>
+                        {% endif %}
                         <p>Budget: $<span>{{movie.f_budget}}</span></p>
                         <p>Revenue: $ <span>{{movie.f_revenue}}</span></p>
                         <p>

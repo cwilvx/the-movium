@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
-from ..request import get_movies,get_movie,search_movie,get_genres,get_similar_movies,get_genre_movies
+from ..request import get_movies,get_movie,search_movie,get_genres,get_similar_movies,get_genre_movies,get_collection
 from .forms import ReviewForm,UpdateProfile
 from ..models import Review, User
 from flask_login import login_required,current_user
@@ -42,6 +42,11 @@ def genres():
 def genre_movies(id):
     movies = get_genre_movies(id)
     return render_template('genre_movies.html',movies = movies)
+
+@main.route('/collection/<int:id>')
+def collection(id):
+    collection = get_collection(id)
+    return render_template('collection.html',collection = collection)
 
 @main.route('/movie/<int:id>' ,methods = ['GET','POST'])
 def movie(id):

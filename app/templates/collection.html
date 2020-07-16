@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex">
+    <div style="padding: 5px;height: auto;"><img class="shadow-sm" src="{{collection.poster}}" style="height: 460px;"></div>
+    <div style="padding: 5px;width: 100%;">
+        <div class="shadow" id="site-cover" style="height: 460px;background-image: url({{collection.backdrop}});width: 100%;">
+            <div id="site-meme">
+                <h1 class="text-uppercase text-center" id="meme-first-line">{{collection.name}}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex">
+    {% for movie in collection.parts %}
+    <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6" style="padding: 5px;">
+        <div class="photo-card">
+            <div class="photo-background" style="background-image: url(https://image.tmdb.org/t/p/w1280/{{movie.poster_path}});" ><span style="font-size: small; float: right;" class="text-light" >({{movie.release_date[0:4]}})</span></div>
+            <div class="photo-details">
+                <h2 style="color: rgb(255,255,255);"><span><a class="movie-taito" href="/movie/{{movie.id}}">{{movie.title |truncate(35)}}</a></span></h2>
+                <h6 class="text-success card-subtitle mb-2"><b>{{ movie.vote_average }}</b> - <i>{{ movie.vote_count}} votes</i></h6>
+                <p>{{movie.overview | truncate(200)}}&nbsp; </p>
+                <div class="photo-tags">
+                    <ul>
+                        <li>
+                            {% if movie.release_date %}
+                                <a href="#" class="btn disabled">Released</a>
+                            {% else %}
+                            <a href="#" class="disabled">Unreleased</a>
+                            {% endif %}
+                            </li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
+	
