@@ -2,11 +2,11 @@ import os
 
 class Config:
 
-    MOVIE_API_BASE_URL ='https://api.themoviedb.org/3/movie/{}?api_key={}'
+    MOVIE_API_BASE_URL ='https://api.themoviedb.org/3/movie/{}?api_key={}&page=2'
     SIMILAR_URL = 'https://api.themoviedb.org/3/movie/{}/similar?api_key={}'
     GENRES_URL ='https://api.themoviedb.org/3/genre/movie/list?api_key={}'
     GENRE_MOVIES_URL = 'https://api.themoviedb.org/3/discover/movie?api_key={}&with_genres={}'
-    COLLECTION_URL = 'https://api.themoviedb.org/3/collection/{}?api_key={}&language=en-US'
+    COLLECTION_URL = 'https://api.themoviedb.org/3/collection/{}?api_key={}'
     MOVIE_API_KEY = os.environ.get('MOVIE_API_KEY')
     SECRET_KEY = os.environ.get('SECRET_KEY')
     UPLOADED_PHOTOS_DEST = 'app/static/photos'

@@ -69,14 +69,16 @@ def movie(id):
 
     return render_template('movie.html',title = title,movie = movie,similar = similar,reviews = reviews,review_form=form)
 
-@main.route('/search/<movie_name>')
-def search(movie_name):
+@main.route('/search/',methods=['GET'])
+def search():
+	keyword = request.args.get('q')
+	keyword_list = keyword.split(" ")
+	keyword_format = '%20'.join(keyword_list)
+	searched_movies = search_movie(keyword_format)
+	title = f'Search results for {keyword} '
+	
+	return render_template('search.html',movies = searched_movies)
 
-    movie_name_list = movie_name.split(" ")
-    movie_name_format = "+".join(movie_name_list)
-    searched_movies = search_movie(movie_name_format)
-    title = f'search results for {movie_name}'
-    return render_template('search.html',movies = searched_movies)
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 def update_profile(uname):

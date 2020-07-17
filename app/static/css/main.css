@@ -1,3 +1,27 @@
 body{
 	background-color: rgb(19, 18, 18);
 }
+.card{
+	border: none !important;
+}
+.anime{
+	border: none;
+	background-color: transparent !important;
+}
+.anime:hover{
+	transform: scale(1.1);
+}
+section{
+	background-color: #2d3436;
+	background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
+}
+@media (max-width: 700px){
+	.d-flex{
+		display: inline !important;
+	}
+	#id{
+		width: 98% !important;
+		height: 200px !important;
+	}
+	
+}

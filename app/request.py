@@ -119,8 +119,9 @@ def get_movie(id):
             f_revenue = f"{revenue:,.2f}"
             f_budget = f"{budget:,.2f}"
             b_collection = collection
+            runtime = movie_details_response.get('runtime')
             
-            movie_object = Movie(id,title,overview,poster,vote_average,vote_count,genres,backdrop,budget,collection,homepage,date,languages,status,tag,revenue,f_revenue,f_budget,b_collection)
+            movie_object = Movie(id,title,overview,poster,vote_average,vote_count,genres,backdrop,budget,collection,homepage,date,languages,status,tag,revenue,f_revenue,f_budget,b_collection,runtime)
 
     return movie_object
 
@@ -176,10 +177,10 @@ def process_results(movie_list):
         f_revenue = 'revenue'
         f_budget = 'budget'
         b_collection = collection
+        runtime = movie_item.get('runtime')
         
         if backdrop:
-
-            movie_object = Movie(id,title,overview,poster,vote_average,vote_count,genres,backdrop,budget,collection,homepage,date,languages,status,tag,revenue,f_revenue,f_budget,b_collection)
+            movie_object = Movie(id,title,overview,poster,vote_average,vote_count,genres,backdrop,budget,collection,homepage,date,languages,status,tag,revenue,f_revenue,f_budget,b_collection,runtime)
             movie_results.append(movie_object)
 
     return movie_results

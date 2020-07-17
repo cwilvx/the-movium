@@ -9,7 +9,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 class Movie:
-    def __init__(self,id,title,overview,poster,vote_average,vote_count,genres,backdrop,collection,budget,homepage,date,languages,status,tag,revenue,f_revenue,f_budget,b_collection):
+    def __init__(self,id,title,overview,poster,vote_average,vote_count,genres,backdrop,collection,budget,homepage,date,languages,status,tag,revenue,f_revenue,f_budget,b_collection,runtime):
         self.id =id
         self.title = title
         self.overview = overview
@@ -29,6 +29,7 @@ class Movie:
         self.f_revenue = f_revenue
         self.f_budget = f_budget
         self.b_collection = b_collection
+        self.runtime = runtime
 
 class Genres:
     def __init__(self,id,name):

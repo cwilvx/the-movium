@@ -117,3 +117,26 @@ color: white;
 	color: #fff;
 	text-decoration: none;
 }
+.card {
+	background-color: #313131 !important;
+}
+.overview{
+	background-blend-mode: overlay;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+.btn-themed{
+	border-radius: 0;
+	background-color: #a3057f !important;
+	border: 0;
+}
+.card a,.card a:hover{
+	color: #fff;
+	text-decoration: none;
+	border-radius: 0;
+}
+.modal{
+	border-radius: 0 !important;
+}

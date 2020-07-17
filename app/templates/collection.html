@@ -1,8 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="d-flex">
-    <div style="padding: 5px;height: auto;"><img class="shadow-sm" src="{{collection.poster}}" style="height: 460px;"></div>
+<title>{{collection.name}}</title>
+<style>
+    @media (max-width: 700px){
+        .d-flex{
+            display: inline !important;
+        }
+        #id{
+            width: 98% !important;
+            height: 200px !important;
+        }
+    }
+</style>
+<div style="padding: 2px;">
+    <div class="d-flex text-center">
+    <div id="id" style="padding: 5px;height: auto;width: 306px; margin: 5px; background-image: url({{collection.poster}});background-position: center;background-size: cover;" style="display: inline-block;"></div>
     <div style="padding: 5px;width: 100%;">
         <div class="shadow" id="site-cover" style="height: 460px;background-image: url({{collection.backdrop}});width: 100%;">
             <div id="site-meme">
@@ -11,13 +24,26 @@
         </div>
     </div>
 </div>
-<div class="d-flex">
-    {% for movie in collection.parts %}
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+    {% for movie in collection.parts %} 
     <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6" style="padding: 5px;">
         <div class="photo-card">
-            <div class="photo-background" style="background-image: url(https://image.tmdb.org/t/p/w1280/{{movie.poster_path}});" ><span style="font-size: small; float: right;" class="text-light" >({{movie.release_date[0:4]}})</span></div>
+            <div class="photo-background" style="background-image: url(https://image.tmdb.org/t/p/w1280/{{movie.poster_path}});" ><span style="font-size: small; float: right;" class="text-light" >
+                {% if movie.release_date %}
+                    ({{movie.release_date[0:4]}})
+                {% endif %}
+                    </span></div>
             <div class="photo-details">
-                <h2 style="color: rgb(255,255,255);"><span><a class="movie-taito" href="/movie/{{movie.id}}">{{movie.title |truncate(35)}}</a></span></h2>
+                <h2 style="color: rgb(255,255,255);"><span>
+                {% if movie.release_date %}
+                    <a class="movie-taito" href="/movie/{{movie.id}}">{{movie.title |truncate(35)}}</a></span>
+                    {% else %}
+                    {{movie.title |truncate(35)}}
+                {% endif %}
+                </h2>
                 <h6 class="text-success card-subtitle mb-2"><b>{{ movie.vote_average }}</b> - <i>{{ movie.vote_count}} votes</i></h6>
                 <p>{{movie.overview | truncate(200)}}&nbsp; </p>
                 <div class="photo-tags">
@@ -37,5 +63,7 @@
     </div>
     {% endfor %}
 </div>
+</div>
+
 {% endblock content %}
 	

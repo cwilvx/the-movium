@@ -29,15 +29,13 @@
 {% endmacro %}
 
 {% macro displayTop3MovieList(movie_list) %}
+
     {% for movie in movie_list[0:3] %}
-            <div class="col-md-4 col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4">
-                <div class="card shadow" style="padding: 5px; background-color: transparent;" data-bs-parallax-bg="true"><img class="card-img w-100 d-block" src="{{movie.poster}}">
-                    <div class="card-img-overlay">
-                        <a class="movie-title" href="{{url_for('main.movie',id = movie.id)}}">{{ movie.title}}</a>
-                    </div>
+            <div class="col-md-4 col-md-4 col-lg-4 col-xl-4 col-sm-4 col-xs-4 text-center">
+                <div class="card anime" style="padding: 30px; background-color: transparent; transition: 0.4s; display: inline-block;" data-bs-parallax-bg="true">
+                    <a class="movie-title" href="{{url_for('main.movie',id = movie.id)}}"><img class="card-img d-block shadow" style="height: auto; width: 300px;" src="{{movie.poster}}"></a>
                 </div>
             </div>
-            
     {% endfor %}
 {% endmacro %}
 
