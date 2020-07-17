@@ -15,11 +15,14 @@
 	#m_image{
 		width: 100% !important;
 	}
+    #pic{
+        height: 350px !important;
+    }
 }
 </style>
 <div class="container-fluid" style="background-color: transparent;">
     <div class="d-flex flex-row card" style="background-color: transparent; margin-top: 10px;">
-        <div class="card genres shadow col-md-3" style="margin: 10px; background-image: url({{movie.backdrop}}); background-repeat: no-repeat; background-size: cover; background-position: center; background-blend-mode: overlay;">
+        <div class="card genres shadow col-md-3" style="margin: 10px; background-image: url({{movie.backdrop}}); background-repeat: no-repeat; background-size: cover; background-position: center; background-blend-mode: overlay; width: auto;">
             <div class="card-body">
                 <h4 class="card-title text-center">Genres</h4>
                 <hr class="bg-light">
@@ -28,7 +31,7 @@
 	            {% endfor %}
             </div>
         </div>
-        <div class="shadow" id="movie-image" style="margin: 10px;padding: 10px; background-color: #313131; border-radius: 3px;"><img id="m_image" src="{{movie.poster}}" style="width: 300px;"></div>
+        <div class="shadow" id="movie-image" style="margin: 10px;padding: 10px; background-color: #313131; border-radius: 3px;"><img id="m_image" class="shadow" src="{{movie.poster}}" style="width: 300px;"></div>
         <div class="card shadow" style="margin: 10px;">
             <div class="card-body">
                 <span style="float: right; padding: 5px; background-color: #a3057f;">{{movie.status}}</span>
@@ -39,7 +42,9 @@
                 
                 <div class="card">
                     <div class="card-body">
+                    {% if movie.homepage %}
                         <span class="btn" style="float: right; padding: 5px; background-color: #a3057f; border-radius: 0;"><a href="{{movie.homepage}}" target="_blank">Homepage</a></span>
+                    {% endif %}
                         {% if movie.b_collection %}
                             <p class="card-text" ><a href="{{url_for('main.collection',id=movie.b_collection.id)}}" class="card-link" style="text-decoration: underline;">{{movie.b_collection.name}}</a></p>
                         {% endif %}
@@ -49,7 +54,7 @@
                         <p>
                         {% for language in movie.languages %}
                             <span style="background-color: transparent; color: #fff; padding-right: 5px;padding-left: 5px;border-radius: 10px;"><a class="text-muted" href="#">{{language.name}}</a></span>
-                        {% endfor %}
+                        {% endfor %}<a class="card-link" data-toggle="modal" href="#" data-target="#cast-modal" style="text-decoration: underline;">The cast</a>
                             </p>
                     </div>
                 </div>{% if current_user.is_authenticated %}
@@ -60,10 +65,7 @@
                             <div class="modal-header">
                                 <h4 class="modal-title">Leave a Review</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button></div>
                             <div class="modal-body">
-                                
-                                
                                     {{ wtf.render_form(review_form) }}
-                                    
                                 </div>
                                 
                             <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Discard</button></div>
@@ -123,5 +125,32 @@
             {% else %}
             <h1 class="texy-center">This Movie is Unique(There are no similar Movies)</h1>
             {% endif %}
+</div>
+
+<!-- cast modal -->
+
+<div class="modal fade zoom text-dark " style="border-radius: 0;" role="dialog" tabindex="-1" id="cast-modal">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content text-center" style="border-radius: 0;">
+            <div class="modal-header">
+                <h4 class="modal-title">{{movie.title}}: The Cast</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+            <div class="modal-body d-flex" style="flex-wrap: wrap; display: inline-block;">
+                {% for item in cast %}
+                    <div class="card col-md-4 bg-light text-dark" style="padding: 10px;">
+                    <div class="card-body shadow">
+                    {% if item.pic %}
+                    <div id="pic" style="width: 100%; height: 200px; background-image: url(https://image.tmdb.org/t/p/w1280/{{item.pic}}); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+                    {% else %}
+                    <div id="pic" style="width: 100%; height: 200px; background-image: url(https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads01&accessoriesType=Round&hairColor=Black&facialHairType=Blank&clotheType=BlazerShirt&eyeType=WinkWacky&eyebrowType=RaisedExcitedNatural&mouthType=Tongue&skinColor=Tanned); background-position: center; background-repeat: no-repeat; background-size: cover;"></div>
+                    {% endif %}
+                        
+                        
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <p class="card-text">as <span style="color: green; font-size: small;">{{item.character}}</span></p>
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}

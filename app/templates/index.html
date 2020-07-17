@@ -2,54 +2,55 @@
 {% import 'macros.html' as macro %}
 {% block content %}
 <title>Home - The Movium</title>
-<section data-bs-parallax-bg="true">
+<div class="container-fluid">
+<div id="section" style="border-b">
   <div class="jumbotron shadow tops" style="height: auto;background-color: transparent;">
       <h1 class="display-4 text-center text-light">#Top3 In Theaters</h1>
       <div class="row">
         {{ macro.displayTop3MovieList(now_showing)}}
       </div>
   </div>
-</section>
-<div style="padding: 20px;">
+</div id="section">
+<div>
     <h1 class="text-center" style="width: 100%; background-color: #a3057f; border-radius: 0; color: white;"></h1>
     <div class="row">
        {{ macro.displayMovieList(now_showing)}}
     </div>
 </div>
-<section data-bs-parallax-bg="true">
+<div id="section">
   <div class="jumbotron shadow tops" style="height: auto;background-color: transparent;">
       <h1 class="display-4 text-center text-light">#Top3 Top rated</h1>
       <div class="row">
         {{ macro.displayTop3MovieList(top_rated)}}
       </div>
   </div>
-</section>
-<div style="padding: 20px;">
+</div id="section">
+<div>
     <div class="row">
        {{ macro.displayMovieList(top_rated)}}
     </div>
 </div>
-<section>
+<div id="section">
   <div class="jumbotron shadow" style="height: auto;background-color: transparent;">
       <h1 class="display-4 text-center text-light">#Top3 Upcoming Movies</h1>
       <div class="row">
         {{ macro.displayTop3MovieList(upcoming)}}
       </div>
   </div>
-</section>
+</div>
   <div style="padding: 20px;">
     <div class="row">
       {{ macro.displayMovieList(upcoming)}}
     </div>
   </div>
-<section>
+<div id="section">
   <div class="jumbotron shadow" style="height: auto;background-color: transparent;">
     <h1 class="display-4 text-center text-light">#Top3 Popular Movies</h1>
       <div class="row">
         {{ macro.displayTop3MovieList(popular)}}
       </div>
   </div>
-</section>
+</div id="div id="section"">
 <div style="padding: 20px;">
   <div class="row">
       {{ macro.displayMovieList(popular)}}

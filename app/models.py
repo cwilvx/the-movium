@@ -43,7 +43,13 @@ class Collection:
         self.poster = "https://image.tmdb.org/t/p/w1280/"+poster
         self.backdrop = "https://image.tmdb.org/t/p/w1280/"+backdrop
         self.parts = parts
-     
+
+class Cast:
+    def __init__(self,character,name,pic):
+        self.character = character
+        self.name = name
+        self.pic = pic
+
 class Review(db.Model):
 
     __tablename__ = 'reviews'

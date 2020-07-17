@@ -1,5 +1,5 @@
 import urllib.request,json
-from .models import Movie,Genres,Collection
+from .models import Movie,Genres,Collection,Cast
 
 api_key = None
 base_url = None
@@ -7,15 +7,19 @@ similar_url = None
 genres_url = None
 genre_movies_url = None
 collection_url = None
+search_url = None
+cast_url = None
 
 def configure_request(app):
-    global api_key,base_url,similar_url,genres_url,genre_movies_url,collection_url
+    global api_key,base_url,similar_url,genres_url,genre_movies_url,collection_url,search_url,cast_url
     api_key = app.config['MOVIE_API_KEY']
     base_url = app.config['MOVIE_API_BASE_URL']
     similar_url = app.config['SIMILAR_URL']
     genres_url = app.config['GENRES_URL']
     genre_movies_url = app.config['GENRE_MOVIES_URL']
     collection_url = app.config['COLLECTION_URL']
+    search_url = app.config['SEARCH_URL']
+    cast_url = app.config['CAST_URL']
 
 def get_genres():
     get_genres_url = genres_url.format(api_key)
@@ -141,7 +145,7 @@ def get_genre_movies(id):
     
 
 def search_movie(movie_name):
-    search_movie_url = 'https://api.themoviedb.org/3/search/movie?api_key={}&query={}'.format(api_key,movie_name)
+    search_movie_url = search_url.format(api_key,movie_name)
     with urllib.request.urlopen(search_movie_url) as url:
         search_movie_data = url.read()
         search_movie_response = json.loads(search_movie_data)
@@ -185,3 +189,24 @@ def process_results(movie_list):
 
     return movie_results
 
+def get_cast(id):
+    get_cast_url = cast_url.format(id,api_key)
+    with urllib.request.urlopen(get_cast_url) as url:
+        cast_data = url.read()
+        cast_response = json.loads(cast_data)
+        cast_results = None
+        if cast_response['cast']:
+            cast_list = cast_response['cast']
+            cast_results = process_cast(cast_list)
+    return cast_results
+
+def process_cast(cast):
+    cast_results = []
+    for item in cast:
+        character = item.get('character')
+        name = item.get('name')
+        pic = item.get('profile_path')
+
+        cast_object = Cast(character,name,pic)
+        cast_results.append(cast_object)
+    return cast_results
