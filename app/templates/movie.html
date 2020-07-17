@@ -41,7 +41,7 @@
                     <div class="card-body">
                         <span class="btn" style="float: right; padding: 5px; background-color: #a3057f; border-radius: 0;"><a href="{{movie.homepage}}" target="_blank">Homepage</a></span>
                         {% if movie.b_collection %}
-                            <p class="card-text" ><a href="{{url_for('main.collection',id=movie.b_collection.id)}}" class="card-link">{{movie.b_collection.name}}</a></p>
+                            <p class="card-text" ><a href="{{url_for('main.collection',id=movie.b_collection.id)}}" class="card-link" style="text-decoration: underline;">{{movie.b_collection.name}}</a></p>
                         {% endif %}
                         <p><span>Runtime: {{movie.runtime}} minutes</span></p>
                         <p>Budget: $<span>{{movie.f_budget}}</span></p>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 {% else %}
-                <a class="card-link btn btn-primary btn-themed" style="margin-top: 10px;" href="/auth/login">Login to Write a review</a>
+                <a class="card-link btn btn-primary btn-themed" style="margin-top: 10px;" href="/auth/login">Login to review</a>
                 {% endif %}
             </div>
         </div>
@@ -87,7 +87,7 @@
                         {% if current_user.is_authenticated %}
                         <a class="card-link" href="#" data-toggle="modal" data-target="#review-modal">Write a Review</a>
                         {% else %}
-                        <a class="card-link" href="{{url_for('auth.login')}}">Login to write a review</a>
+                        <a class="card-link" style="text-decoration: underline;" href="{{url_for('auth.login')}}">Login to review</a>
                         {% endif %}
                     </div>
                 </div>

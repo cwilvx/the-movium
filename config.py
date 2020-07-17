@@ -2,7 +2,7 @@ import os
 
 class Config:
 
-    MOVIE_API_BASE_URL ='https://api.themoviedb.org/3/movie/{}?api_key={}&page=2'
+    MOVIE_API_BASE_URL ='https://api.themoviedb.org/3/movie/{}?api_key={}'
     SIMILAR_URL = 'https://api.themoviedb.org/3/movie/{}/similar?api_key={}'
     GENRES_URL ='https://api.themoviedb.org/3/genre/movie/list?api_key={}'
     GENRE_MOVIES_URL = 'https://api.themoviedb.org/3/discover/movie?api_key={}&with_genres={}'

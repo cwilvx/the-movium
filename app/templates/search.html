@@ -2,9 +2,34 @@
 {% import 'macros.html' as macro%}
 
 {% block content %}
+<title>Movie Results</title>
 <div class="alert alert-light text-left text-dark border rounded-0 shadow" style="margin: 5px;" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><span>Found {{ movies| count }} matches </span></div>
-
 <div class="row">
-{{ macro.displayMovieList(movies)}}
+	{% for movie in movies %}
+    <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6" style="padding: 5px;">
+        <div class="photo-card">
+            <div class="photo-background" style="background-image: url({{movie.poster}});" ></div>
+            <div class="photo-details">
+                <h2 style="color: rgb(255,255,255);"><span><a class="movie-taito" href="/movie/{{movie.id}}">{{movie.title |truncate(35)}}</a></span><span style="font-size: small;" class="text-light" >({{movie.date[0:4]}})</span></h2>
+                <h6 class="text-success card-subtitle mb-2"><b>{{ movie.vote_average }}</b> - <i>{{ movie.vote_count}} votes</i></h6>
+                <p>{{movie.overview | truncate(200)}}&nbsp; </p>
+                <div class="photo-tags">
+                    <ul>
+                        <li>
+                            
+                            {% if movie.date %}
+                                <a href="#" class="btn disabled">Released</a>
+                            {% else %}
+                            <a href="#" class="disabled">Unreleased</a>
+                            {% endif %}
+                                
+                            </li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}
